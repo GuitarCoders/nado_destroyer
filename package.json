@@ -1,0 +1,17 @@
+{
+  "name": "nado_destroyer",
+  "version": "1.0.0",
+  "description": "나도하루 API를 반복호출하기위한 잔디심기용 공격장치",
+  "main": "index.ts",
+  "scripts": {
+    "DESTROY": "node index.ts"
+  },
+  "author": "JongCo",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@urql/core": "^5.1.1"
+  }
+}
