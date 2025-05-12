@@ -1,6 +1,7 @@
 import { Client, TypedDocumentNode, cacheExchange, fetchExchange, gql } from "@urql/core";
 import { createUser } from "./automation/createUser.js";
 import { nadoUser } from "./types/nadoUser.js";
+import { sendFriendRequest } from "./automation/sendFriendRequest.js";
 
 const client = new Client({
     url: 'http://127.0.0.1:6378/graphql',
@@ -11,6 +12,8 @@ async function main() {
     if (process.argv.length < 3) {
         console.log("Please select mode")
         console.log("MODE:DELUGE  #Create the source that will overflow with data rippling at the edge of its limits.");
+        console.log("MODE:EVANGELIZE  #Extend a hand at random to the departed who walk the path of the same beliefs.");
+
         return;
     }
 
@@ -19,6 +22,12 @@ async function main() {
         const usersData:nadoUser[] = data.default;
         
         await createUser(usersData);
+    }
+
+    if (process.argv[2] === "MODE:EVANGELIZE") {
+        const usersData:nadoUser[] = [{name: 'jongco', account_id: 'jongco', email: 'jongco@gmail.com'}]
+
+        await sendFriendRequest(usersData);
     }
 }
 

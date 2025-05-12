@@ -1,7 +1,7 @@
 import { gql } from "@urql/core";
 
 export const createUserGQL = {
-    mutations: gql`
+    mutation: gql`
         mutation CreateUser($accountId: String!, $name: String!, $email: String!) {
             createUser(createUserData: {
                 account_id: $accountId,
@@ -17,6 +17,6 @@ export const createUserGQL = {
     `,
 
     mutationMaker: (accountId: String, name: String, email: String):[any, any] => {
-        return [createUserGQL.mutations, { accountId: accountId, name: name, email: email }];
+        return [createUserGQL.mutation, { accountId: accountId, name: name, email: email }];
     }
 }
