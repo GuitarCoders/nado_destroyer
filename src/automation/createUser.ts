@@ -10,7 +10,20 @@ export async function createUser(users: nadoUser[]):Promise<void> {
         exchanges: [cacheExchange, fetchExchange]
     });
 
-    users.forEach(async (user) => {
-        await client.mutation(...createUserGQL.mutationMaker(user.account_id, user.name, user.email));
-    })
+    for (const user of users) {
+        try {
+            const result = await client.mutation(
+                ...createUserGQL.mutationMaker(
+                    user.account_id, 
+                    user.name, 
+                    user.email
+                )
+            );
+
+            result.error ? console.log(result.error) : "";
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    
 }
