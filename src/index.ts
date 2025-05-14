@@ -25,7 +25,8 @@ async function main() {
     }
 
     if (process.argv[2] === "MODE:EVANGELIZE") {
-        const usersData:nadoUser[] = [{name: 'jongco', account_id: 'jongco', email: 'jongco@gmail.com'}]
+        const data = await import('../data/users.json', {assert: {type: 'json'}});
+        const usersData:nadoUser[] = data.default;
 
         await sendFriendRequest(usersData);
     }

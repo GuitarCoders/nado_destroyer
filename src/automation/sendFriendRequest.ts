@@ -2,14 +2,13 @@ import { cacheExchange, Client, createClient, fetchExchange } from "@urql/core";
 import { nadoUser } from "../types/nadoUser.js";
 import { loginGQL } from "../graphql/login.js";
 import { sendFriendRequestGQL } from "../graphql/sendFriendRequest.js";
+import { getUsersGQL } from "../graphql/getUsers.js";
 
 export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
-    
-    let bearerKey = '';
-
+    let c = 0;
     for (const user of users) {
-
-
+        let bearerKey = '';
+        
         const client = createClient({
             url: 'http://127.0.0.1:6378/graphql',
             exchanges: [cacheExchange, fetchExchange],
@@ -32,15 +31,44 @@ export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
             console.error(loginResult.error);
             return;
         }
-        
-        console.log(loginResult.data);
+
         bearerKey = loginResult.data.login.jwt_token;
 
-        await client.mutation(
-            ...sendFriendRequestGQL.mutationMaker(
-                '68217a43a7127a1444b3dae7',
-                'test'
-            )
-        );
+        const usersQueryResult = await client.query(
+            ...getUsersGQL.queryMaker()
+        )
+        const fetchedUsers:{_id: string, __typename: string}[] = usersQueryResult.data.users.Users;
+
+        c++;
+        const randomNum = Math.random();
+        const requestQuantity = Math.round((fetchedUsers.length*0.1*randomNum) + (Math.pow(randomNum,7)*fetchedUsers.length*0.9));
+        console.log(`${c} : ${requestQuantity}`);
+
+        for (const num of pickRandomIndex(fetchedUsers.length, requestQuantity)) {
+
+            if (!fetchedUsers[num]) continue;
+
+            await client.mutation(
+                ...sendFriendRequestGQL.mutationMaker(
+                    fetchedUsers[num]._id,
+                    `REACH FOR MY HAND, you who questions.`
+                )
+            );
+        }
     }
+}
+
+function pickRandomIndex (maxValue: number, length: number): number[] {
+
+    // 0 ~ maxValue in array
+    const numberArray = Array.from({ length:maxValue }, (_, i) => i);
+
+    for (let i = numberArray.length; i >= 0; i--) {
+        const randomIndex = Math.floor(Math.random()*numberArray.length-1)
+        const temp = numberArray[randomIndex]
+        numberArray[randomIndex] = numberArray[i];
+        numberArray[i] = temp;
+    }
+    
+    return numberArray.slice(0, length);
 }

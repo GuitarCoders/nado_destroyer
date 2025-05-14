@@ -7,8 +7,6 @@ export const sendFriendRequestGQL = {
                 receiveUserId:$receiveUserId,
                 requestMessage:$requestMessage
             }) {
-                requestUser {name},
-                receiveUser {name},
                 success
             }
         }
