@@ -47,13 +47,17 @@ export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
         for (const num of pickRandomIndex(fetchedUsers.length, requestQuantity)) {
 
             if (!fetchedUsers[num]) continue;
-
-            await client.mutation(
-                ...sendFriendRequestGQL.mutationMaker(
-                    fetchedUsers[num]._id,
-                    `REACH FOR MY HAND, you who questions.`
-                )
-            );
+            try {
+                await client.mutation(
+                    ...sendFriendRequestGQL.mutationMaker(
+                        fetchedUsers[num]._id,
+                        `REACH FOR MY HAND, you who questions.`
+                    )
+                );
+            } catch (e) {
+                console.error(e);
+            }
+            
         }
     }
 }
