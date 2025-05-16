@@ -3,6 +3,7 @@ import { nadoUser } from "../types/nadoUser.js";
 import { loginGQL } from "../graphql/login.js";
 import { sendFriendRequestGQL } from "../graphql/sendFriendRequest.js";
 import { getUsersGQL } from "../graphql/getUsers.js";
+import { generateRandomArray } from "../utils/random.js";
 
 export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
     let c = 0;
@@ -44,7 +45,7 @@ export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
         const requestQuantity = Math.round((fetchedUsers.length*0.1*randomNum) + (Math.pow(randomNum,7)*fetchedUsers.length*0.9));
         console.log(`${c} : ${requestQuantity}`);
 
-        for (const num of pickRandomIndex(fetchedUsers.length, requestQuantity)) {
+        for (const num of generateRandomArray(fetchedUsers.length, requestQuantity)) {
 
             if (!fetchedUsers[num]) continue;
             try {
@@ -57,22 +58,7 @@ export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
             } catch (e) {
                 console.error(e);
             }
-            
+
         }
     }
-}
-
-function pickRandomIndex (maxValue: number, length: number): number[] {
-
-    // 0 ~ maxValue in array
-    const numberArray = Array.from({ length:maxValue }, (_, i) => i);
-
-    for (let i = numberArray.length; i >= 0; i--) {
-        const randomIndex = Math.floor(Math.random()*numberArray.length-1)
-        const temp = numberArray[randomIndex]
-        numberArray[randomIndex] = numberArray[i];
-        numberArray[i] = temp;
-    }
-    
-    return numberArray.slice(0, length);
 }
