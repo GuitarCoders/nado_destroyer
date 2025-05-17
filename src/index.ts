@@ -2,6 +2,7 @@ import { Client, TypedDocumentNode, cacheExchange, fetchExchange, gql } from "@u
 import { createUser } from "./automation/createUser.js";
 import { nadoUser } from "./types/nadoUser.js";
 import { sendFriendRequest } from "./automation/sendFriendRequest.js";
+import { acceptFriendRequest } from "./automation/acceptFriendRequest.js";
 
 const client = new Client({
     url: 'http://127.0.0.1:6378/graphql',
@@ -29,6 +30,13 @@ async function main() {
         const usersData:nadoUser[] = data.default;
 
         await sendFriendRequest(usersData);
+    }
+
+    if (process.argv[2] === "MODE:TEST") {
+        const data = await import('../data/users.json', {assert: {type: 'json'}});
+        const usersData:nadoUser[] = data.default;
+
+        await acceptFriendRequest(usersData);
     }
 }
 
