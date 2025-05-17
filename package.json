@@ -4,13 +4,13 @@
   "description": "나도하루 API를 반복호출하기위한 잔디심기용 공격장치",
   "type": "module",
   "scripts": {
-    "DESTROY": "ts-node-esm ./src/index.ts"
+    "DESTROY": "tsx ./src/index.ts"
   },
   "author": "JongCo",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.15.3",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },
   "dependencies": {
