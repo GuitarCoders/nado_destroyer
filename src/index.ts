@@ -20,21 +20,21 @@ async function main() {
     }
 
     if (process.argv[2] === "MODE:DELUGE") {
-        const data = await import('../data/users.json', {assert: {type: 'json'}});
+        const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
         
         await createUser(usersData);
     }
 
     if (process.argv[2] === "MODE:EVANGELIZE") {
-        const data = await import('../data/users.json', {assert: {type: 'json'}});
+        const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
 
         await sendFriendRequest(usersData);
     }
 
     if (process.argv[2] === "MODE:ACCEPTANCE") {
-        const data = await import('../data/users.json', {assert: {type: 'json'}});
+        const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
 
         await acceptFriendRequest(usersData);
