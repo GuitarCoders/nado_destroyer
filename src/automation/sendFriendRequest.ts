@@ -5,13 +5,13 @@ import { sendFriendRequestGQL } from "../graphql/sendFriendRequest.js";
 import { getUsersGQL } from "../graphql/getUsers.js";
 import { generateRandomArray } from "../utils/random.js";
 
-export async function sendFriendRequest(users: nadoUser[]): Promise<void> {
+export async function sendFriendRequest(users: nadoUser[], url:string): Promise<void> {
     let c = 0;
     for (const user of users) {
         let bearerKey = '';
         
         const client = createClient({
-            url: 'http://127.0.0.1:6378/graphql',
+            url,
             exchanges: [cacheExchange, fetchExchange],
             fetchOptions: () => {
                 return {

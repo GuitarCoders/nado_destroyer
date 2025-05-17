@@ -4,7 +4,7 @@ import { loginGQL } from "../graphql/login.js";
 import { getFriendRequestGQL } from "../graphql/getFriendRequest.js";
 import { acceptFriendRequestGQL } from "../graphql/acceptFriendRequest.js";
 
-export async function acceptFriendRequest(users:nadoUser[]): Promise<void> {
+export async function acceptFriendRequest(users:nadoUser[], url:string): Promise<void> {
 
     let c = 0;
 
@@ -12,7 +12,7 @@ export async function acceptFriendRequest(users:nadoUser[]): Promise<void> {
         let bearerKey = '';
         
         const client = createClient({
-            url: 'http://127.0.0.1:6378/graphql',
+            url,
             exchanges: [cacheExchange, fetchExchange],
             fetchOptions: () => {
                 return {

@@ -4,9 +4,9 @@ import path from "path";
 import { nadoUser } from "../types/nadoUser.js";
 import { createUserGQL } from "../graphql/createUser.js";
 
-export async function createUser(users: nadoUser[]):Promise<void> {
+export async function createUser(users: nadoUser[], url:string):Promise<void> {
     const client = new Client({
-        url: 'http://127.0.0.1:6378/graphql',
+        url,
         exchanges: [cacheExchange, fetchExchange]
     });
 

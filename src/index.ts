@@ -4,10 +4,9 @@ import { nadoUser } from "./types/nadoUser.js";
 import { sendFriendRequest } from "./automation/sendFriendRequest.js";
 import { acceptFriendRequest } from "./automation/acceptFriendRequest.js";
 
-const client = new Client({
-    url: 'http://127.0.0.1:6378/graphql',
-    exchanges: [cacheExchange, fetchExchange]
-});
+
+const url = 'http://nadoharu.duckdns.org/api/graphql';
+
 
 async function main() {
     if (process.argv.length < 3) {
@@ -23,21 +22,21 @@ async function main() {
         const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
         
-        await createUser(usersData);
+        await createUser(usersData, url);
     }
 
     if (process.argv[2] === "MODE:EVANGELIZE") {
         const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
 
-        await sendFriendRequest(usersData);
+        await sendFriendRequest(usersData, url);
     }
 
     if (process.argv[2] === "MODE:ACCEPTANCE") {
         const data = await import('../data/users_half.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
 
-        await acceptFriendRequest(usersData);
+        await acceptFriendRequest(usersData, url);
     }
 }
 
