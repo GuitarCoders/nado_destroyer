@@ -12,8 +12,9 @@ const client = new Client({
 async function main() {
     if (process.argv.length < 3) {
         console.log("Please select mode")
-        console.log("MODE:DELUGE  #Create the source that will overflow with data rippling at the edge of its limits.");
+        console.log("MODE:DELUGE      #Create the source that will overflow with data rippling at the edge of its limits.");
         console.log("MODE:EVANGELIZE  #Extend a hand at random to the departed who walk the path of the same beliefs.");
+        console.log("MODE:ACCEPTANCE  #Submit to the radiant light that devours you in brilliance.")
 
         return;
     }
@@ -32,7 +33,7 @@ async function main() {
         await sendFriendRequest(usersData);
     }
 
-    if (process.argv[2] === "MODE:TEST") {
+    if (process.argv[2] === "MODE:ACCEPTANCE") {
         const data = await import('../data/users.json', {assert: {type: 'json'}});
         const usersData:nadoUser[] = data.default;
 
