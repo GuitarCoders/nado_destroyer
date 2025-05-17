@@ -5,7 +5,7 @@ import { sendFriendRequest } from "./automation/sendFriendRequest.js";
 import { acceptFriendRequest } from "./automation/acceptFriendRequest.js";
 
 
-const url = 'http://nadoharu.duckdns.org/api/graphql';
+const url = 'http://127.0.0.1/graphql';
 
 
 async function main() {
